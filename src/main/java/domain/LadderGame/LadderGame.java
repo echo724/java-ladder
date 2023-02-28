@@ -5,13 +5,14 @@ import domain.Collection.Participants;
 import domain.Collection.Result;
 import domain.Collection.Results;
 import domain.Ladder.Ladder;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class LadderGame {
+    
     private static final String CANNOT_FIND_PARTICIPANT_MESSAGE = "해당 이름의 참가자는 없습니다.";
+    private static final String RESULTS_SIZE_NOT_MATCH_ERROR_MSG = "실행 결과 수가 참가자 수와 맞지 않습니다.";
     
     private final Participants participants;
     private final Ladder ladder;
@@ -21,10 +22,17 @@ public class LadderGame {
     private final Map<Participant, Result> gameResult = new HashMap<>();
     
     
-    public LadderGame( Participants participants, Results results, Ladder ladder ) {
+    public LadderGame(Participants participants, Results results, Ladder ladder) {
+        this.validateSize(participants, results);
         this.participants = participants;
         this.results = results;
         this.ladder = ladder;
+    }
+    
+    private void validateSize(Participants participants, Results results) {
+        if (participants.getSize() != results.getSize()) {
+            throw new IllegalArgumentException(RESULTS_SIZE_NOT_MATCH_ERROR_MSG);
+        }
     }
     
     
@@ -33,14 +41,14 @@ public class LadderGame {
         this.makeGameResult(sequence);
     }
     
-    private void makeGameResult( List<Integer> sequence ) {
-        for ( int i = 0; i < sequence.size(); i++ ) {
+    private void makeGameResult(List<Integer> sequence) {
+        for (int i = 0; i < sequence.size(); i++) {
             int changedRank = sequence.get(i);
             this.gameResult.put(this.participants.get(changedRank), this.results.get(i));
         }
     }
     
-    public Result getResultFrom( Participant participant ) {
+    public Result getResultFrom(Participant participant) {
         return this.gameResult.get(participant);
     }
     
@@ -52,11 +60,11 @@ public class LadderGame {
         return this.participants;
     }
     
-    public ResultCommand validateNameToFind( String name ) {
-        if ( name.equals("all") ) {
+    public ResultCommand validateNameToFind(String name) {
+        if (name.equals("all")) {
             return ResultCommand.ALL;
         }
-        if ( this.participants.contains(name) ) {
+        if (this.participants.contains(name)) {
             return ResultCommand.NAME;
         }
         throw new IllegalArgumentException(CANNOT_FIND_PARTICIPANT_MESSAGE);
