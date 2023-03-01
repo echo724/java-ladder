@@ -1,18 +1,19 @@
 package techcourse.jcf.mission;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ArrayListTest {
-    private static ArrayList arrayList;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-    @BeforeAll
-    static void setUp() {
+public class ArrayListTest {
+    
+    private static ArrayList arrayList;
+    
+    @BeforeEach
+    void setUp() {
         arrayList = new ArrayList();
     }
-
+    
     @Test
     void add() {
         arrayList.add("a");
@@ -21,14 +22,14 @@ public class ArrayListTest {
         assertThat(arrayList.size()).isEqualTo(3);
         assertThat(arrayList.get(0)).isEqualTo("a");
     }
-
+    
     @Test
     void testAdd() {
         arrayList.add(0, "a");
         arrayList.add(1, "b");
         assertThat(arrayList.size()).isEqualTo(2);
     }
-
+    
     @Test
     void set() {
         arrayList.add("a");
@@ -37,7 +38,7 @@ public class ArrayListTest {
         assertThat(arrayList.set(1, "d")).isEqualTo("b");
         assertThat(arrayList.get(1)).isEqualTo("d");
     }
-
+    
     @Test
     void get() {
         arrayList.add("a");
@@ -45,7 +46,7 @@ public class ArrayListTest {
         arrayList.add("c");
         assertThat(arrayList.get(1)).isEqualTo("b");
     }
-
+    
     @Test
     void contains() {
         arrayList.add("a");
@@ -54,7 +55,7 @@ public class ArrayListTest {
         assertThat(arrayList.contains("b")).isTrue();
         assertThat(arrayList.contains("d")).isFalse();
     }
-
+    
     @Test
     void indexOf() {
         arrayList.add("a");
@@ -63,7 +64,7 @@ public class ArrayListTest {
         assertThat(arrayList.indexOf("b")).isEqualTo(1);
         assertThat(arrayList.indexOf("d")).isEqualTo(-1);
     }
-
+    
     @Test
     void size() {
         arrayList.add("a");
@@ -71,14 +72,14 @@ public class ArrayListTest {
         arrayList.add("c");
         assertThat(arrayList.size()).isEqualTo(3);
     }
-
+    
     @Test
     void isEmpty() {
         assertThat(arrayList.isEmpty()).isTrue();
         arrayList.add("a");
         assertThat(arrayList.isEmpty()).isFalse();
     }
-
+    
     @Test
     void remove() {
         arrayList.add("a");
@@ -89,7 +90,7 @@ public class ArrayListTest {
         assertThat(arrayList.remove("d")).isFalse();
         assertThat(arrayList.size()).isEqualTo(2);
     }
-
+    
     @Test
     void testRemove() {
         arrayList.add("a");
@@ -98,7 +99,7 @@ public class ArrayListTest {
         assertThat(arrayList.remove(1)).isEqualTo("b");
         assertThat(arrayList.size()).isEqualTo(2);
     }
-
+    
     @Test
     void clear() {
         arrayList.add("a");
