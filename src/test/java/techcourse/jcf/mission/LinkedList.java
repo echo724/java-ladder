@@ -42,7 +42,22 @@ public class LinkedList implements SimpleList {
     
     @Override
     public void add(int index, String value) {
-    
+        if (this.size == index) {
+            this.add(value);
+            return;
+        }
+        Node node = this.head.getNext();
+        int i = 0;
+        while (!Objects.isNull(node)) {
+            if (i == index) {
+                Node next = node.getNext();
+                node.setNext(new Node(next, value));
+                return;
+            }
+            node = node.getNext();
+            i += 1;
+        }
+        throw new IndexOutOfBoundsException();
     }
     
     @Override
